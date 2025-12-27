@@ -5,21 +5,15 @@ import { motion } from "framer-motion";
 type Message = { sender: "user" | "bot"; text: string };
 
 export default function ChatWindow({ messages }: { messages: Message[] }) {
-  const containerRef = useRef<HTMLDivElement | null>(null);
   const endRef = useRef<HTMLDivElement | null>(null);
 
-  // scroll ke pesan terbaru setiap kali ada pesan baru
+  // Auto-scroll ke pesan terbaru
   useLayoutEffect(() => {
-    if (endRef.current) {
-      endRef.current.scrollIntoView({ behavior: "smooth" });
-    }
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   return (
-    <div
-      ref={containerRef}
-      className="flex flex-col overflow-y-auto pr-2 space-y-3 max-h-[60vh] scroll-smooth thin-scroll"
-    >
+    <div className="flex flex-col overflow-y-scroll pr-2 space-y-3 scroll-smooth chat-scrollbar">
       {messages.map((msg, idx) => (
         <motion.div
           key={idx}
