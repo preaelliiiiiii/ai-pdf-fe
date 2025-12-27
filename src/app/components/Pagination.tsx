@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface PaginationProps {
   currentPage: number;
@@ -12,47 +12,92 @@ export default function Pagination({
   totalPages,
   onPageChange,
 }: PaginationProps) {
-  if (totalPages <= 1) return null; // kalau cuma 1 halaman, sembunyikan
+  if (totalPages <= 1) return null;
+
+  const getPageNumbers = () => {
+    const pages: (number | string)[] = [];
+    const maxVisible = 5;
+
+    if (totalPages <= maxVisible) {
+      // Show all pages if total is small
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      // Show first page
+      pages.push(1);
+
+      if (currentPage > 3) {
+        pages.push("...");
+      }
+
+      // Show pages around current
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+
+      if (currentPage < totalPages - 2) {
+        pages.push("...");
+      }
+
+      // Show last page
+      pages.push(totalPages);
+    }
+
+    return pages;
+  };
 
   return (
-    <div className="flex justify-center items-center gap-2 py-4 sticky bottom-0">
-      <button
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-        className={`px-3 py-1 rounded-lg border ${
-          currentPage === 1
-            ? "text-gray-400 border-gray-200 cursor-not-allowed"
-            : "text-blue-600 border-blue-200 hover:bg-blue-50"
-        }`}
-      >
-        Prev
-      </button>
+    <div className="flex items-center justify-between px-6 py-4 border-t border-slate-200 bg-white/50">
+      {/* Page Info */}
+      <div className="text-sm text-slate-600">
+        Page <span className="font-semibold">{currentPage}</span> of{" "}
+        <span className="font-semibold">{totalPages}</span>
+      </div>
 
-      {[...Array(totalPages)].map((_, i) => (
+      {/* Pagination Controls */}
+      <div className="flex items-center gap-2">
+        {/* Previous Button */}
         <button
-          key={i}
-          onClick={() => onPageChange(i + 1)}
-          className={`px-3 py-1 rounded-lg border ${
-            currentPage === i + 1
-              ? "bg-blue-600 text-white border-blue-600"
-              : "text-slate-700 border-slate-200 hover:bg-blue-50"
-          }`}
+          onClick={() => onPageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="p-2 rounded-lg border border-slate-300 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition"
         >
-          {i + 1}
+          <ChevronLeft size={18} />
         </button>
-      ))}
 
-      <button
-        onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-        className={`px-3 py-1 rounded-lg border ${
-          currentPage === totalPages
-            ? "text-gray-400 border-gray-200 cursor-not-allowed"
-            : "text-blue-600 border-blue-200 hover:bg-blue-50"
-        }`}
-      >
-        Next
-      </button>
+        {/* Page Numbers */}
+        <div className="flex items-center gap-1">
+          {getPageNumbers().map((page, index) => (
+            <button
+              key={index}
+              onClick={() => typeof page === "number" && onPageChange(page)}
+              disabled={page === "..."}
+              className={`min-w-[36px] h-9 px-3 rounded-lg text-sm font-medium transition ${
+                page === currentPage
+                  ? "bg-blue-600 text-white shadow-md"
+                  : page === "..."
+                  ? "cursor-default text-slate-400"
+                  : "border border-slate-300 hover:bg-slate-100 text-slate-700"
+              }`}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
+
+        {/* Next Button */}
+        <button
+          onClick={() => onPageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="p-2 rounded-lg border border-slate-300 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition"
+        >
+          <ChevronRight size={18} />
+        </button>
+      </div>
     </div>
   );
 }
