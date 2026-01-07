@@ -5,10 +5,16 @@ import ChatWindow from "@/app/components/ChatWindow";
 import { Send, FileText } from "lucide-react";
 import api from "@/app/lib/api";
 
+// Define the message type
+type Message = {
+  sender: "bot" | "user";
+  text: string;
+};
+
 export default function ChatPage() {
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<Message[]>([
     {
-      sender: "bot" as const,
+      sender: "bot",
       text: "Hi there! 👋 I'm your AI assistant powered by Google Gemini. I can help you with general questions or answer questions about your uploaded documents!",
     },
   ]);
@@ -74,10 +80,7 @@ export default function ChatPage() {
     if (!input.trim() || loading) return;
 
     const userMessage = input.trim();
-    setMessages((prev) => [
-      ...prev,
-      { sender: "user" as const, text: userMessage },
-    ]);
+    setMessages((prev) => [...prev, { sender: "user", text: userMessage }]);
     setInput("");
     setLoading(true);
 
@@ -124,7 +127,7 @@ Jawab dalam bahasa yang sama dengan pertanyaan user (Indonesia atau Inggris).
         setMessages((prev) => [
           ...prev,
           {
-            sender: "bot" as const,
+            sender: "bot",
             text: `📚 **[Document Context Mode]**\n\n${result.data.response}`,
           },
         ]);
@@ -133,7 +136,7 @@ Jawab dalam bahasa yang sama dengan pertanyaan user (Indonesia atau Inggris).
         setMessages((prev) => [
           ...prev,
           {
-            sender: "bot" as const,
+            sender: "bot",
             text: `📭 Maaf, saat ini belum ada dokumen yang diupload.\n\nSilakan upload dokumen PDF terlebih dahulu di menu **Documents**, lalu saya bisa membantu menjawab pertanyaan tentang dokumen tersebut.\n\nAtau, Anda bisa bertanya hal lain yang tidak terkait dokumen! 😊`,
           },
         ]);
@@ -145,7 +148,7 @@ Jawab dalam bahasa yang sama dengan pertanyaan user (Indonesia atau Inggris).
         setMessages((prev) => [
           ...prev,
           {
-            sender: "bot" as const,
+            sender: "bot",
             text: result.data.response,
           },
         ]);
@@ -155,7 +158,7 @@ Jawab dalam bahasa yang sama dengan pertanyaan user (Indonesia atau Inggris).
       setMessages((prev) => [
         ...prev,
         {
-          sender: "bot" as const,
+          sender: "bot",
           text: `❌ Sorry, I encountered an error: ${error.message}. Please try again.`,
         },
       ]);
