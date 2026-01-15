@@ -1,6 +1,6 @@
 // lib/api.ts
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://47.129.44.107:3000";
+  process.env.NEXT_PUBLIC_API_URL || "https://api-ai.desa-maileppet.com:3000";
 
 export const api = {
   // PDF Management
