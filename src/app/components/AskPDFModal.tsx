@@ -156,7 +156,7 @@ export default function AskPDFModal({ doc, onClose }: Props) {
               </div>
             ) : messages.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-center text-slate-400 gap-3">
-                <span className="text-4xl">💬</span>
+                <span className="text-4xl">🐙</span>
                 <p className="text-sm font-medium">
                   Tanya DocJa apa saja tentang dokumen ini
                 </p>
