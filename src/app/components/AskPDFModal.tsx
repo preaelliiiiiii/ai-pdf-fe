@@ -121,7 +121,7 @@ export default function AskPDFModal({ doc, onClose }: Props) {
               <div className="flex items-center gap-2 mb-0.5">
                 <span className="text-lg">🤖</span>
                 <h2 className="font-semibold text-slate-800">
-                  Tanya Diko tentang dokumen ini
+                  Tanya DocJa tentang dokumen ini
                 </h2>
               </div>
               <p className="text-xs text-slate-500 truncate">📄 {doc.name}</p>
@@ -158,7 +158,7 @@ export default function AskPDFModal({ doc, onClose }: Props) {
               <div className="flex flex-col items-center justify-center h-full text-center text-slate-400 gap-3">
                 <span className="text-4xl">💬</span>
                 <p className="text-sm font-medium">
-                  Tanya Diko apa saja tentang dokumen ini
+                  Tanya DocJa apa saja tentang dokumen ini
                 </p>
                 {doc.analysis?.summary && (
                   <p className="text-xs text-slate-400 max-w-sm line-clamp-3">
@@ -251,7 +251,7 @@ export default function AskPDFModal({ doc, onClose }: Props) {
                 onKeyDown={(e) =>
                   e.key === "Enter" && !e.shiftKey && handleSend()
                 }
-                placeholder="Tanya Diko tentang dokumen ini..."
+                placeholder="Tanya DocJa tentang dokumen ini..."
                 disabled={loading || historyLoading}
                 autoFocus
                 className="flex-1 px-4 py-2 rounded-xl border border-slate-300 text-sm
