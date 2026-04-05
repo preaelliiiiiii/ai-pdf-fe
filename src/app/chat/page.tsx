@@ -16,7 +16,7 @@ type Message = {
 export default function ChatPage() {
   const WELCOME_MESSAGE: Message = {
     sender: "bot",
-    text: "Halo! 👋 Aku DocJa, asisten AI kamu. Aku bisa bantu jawab pertanyaan umum atau pertanyaan tentang dokumen yang sudah kamu upload!",
+    text: "Halo! 🐙 Aku DocJa, asisten AI kamu. Aku bisa bantu jawab pertanyaan umum atau pertanyaan tentang dokumen yang sudah kamu upload!",
   };
 
   const [messages, setMessages] = useState<Message[]>([WELCOME_MESSAGE]);
@@ -195,7 +195,7 @@ Jawab dalam bahasa yang sama dengan pertanyaan user (Indonesia atau Inggris).
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-slate-800 tracking-tight mb-1">
-              💬 DocJa AI Assistant
+              🐙 DocJa AI Assistant
             </h1>
             <p className="text-slate-500 text-sm">
               Asisten AI pintarmu — tanya apa saja!
